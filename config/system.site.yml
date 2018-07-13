@@ -1,7 +1,7 @@
 uuid: acdb4025-9e3b-4d20-bf4a-9b177bcbaa86
 name: devportal-d8
 mail: chrisnovak@google.com
-slogan: ''
+slogan: 'Drupal 8 Dev Portal'
 page:
   403: ''
   404: ''
