@@ -1,0 +1,14 @@
+uuid: acdb4025-9e3b-4d20-bf4a-9b177bcbaa86
+name: devportal-d8
+mail: chrisnovak@google.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI
