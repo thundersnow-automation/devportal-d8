@@ -1,0 +1,7 @@
+active_key: apiportal
+active_key_oauth_token: ''
+http_client_connect_timeout: !!float 30
+http_client_timeout: !!float 30
+http_client_proxy: ''
+_core:
+  default_config_hash: JBhGG6Ilwb3lTJPPJkm7dchgVJhzkrSlSGCy5V2TRi8

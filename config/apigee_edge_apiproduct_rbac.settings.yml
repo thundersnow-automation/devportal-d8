@@ -1,0 +1,5 @@
+langcode: en
+attribute_name: APIGEE_EDGE_APIPRODUCT_RBAC
+grant_access_if_attribute_missing: false
+_core:
+  default_config_hash: Yt-GGOrcf9W3YMesmAMbV5KSYOo6rp2gIwwB47uk8Hw

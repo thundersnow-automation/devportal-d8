@@ -1,0 +1,6 @@
+debug_message_formatter: simple
+debug_message_format: '{request_formatted}<p>Transfer statistics: <pre>{stats}</pre></p>'
+masquerade_organization: true
+remove_authorization_header: true
+_core:
+  default_config_hash: dihGwjcJPyHZELD3oHkD64CRXmr99B9jZ5TeZsxovYY
