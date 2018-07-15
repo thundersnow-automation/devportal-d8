@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<psalm
+    name="Apigee Edge PHP SDK configuration"
+    stopOnFirstError="false"
+    useDocblockTypes="true"
+    totallyTyped="false"
+>
+    <projectFiles>
+        <directory name="src" />
+    </projectFiles>
+
+    <issueHandlers>
+        <LessSpecificReturnType errorLevel="info" />
+        <!-- Added because of inherited/overridden Symfony functions. -->
+        <LessSpecificReturnStatement errorLevel="info" />
+        <MissingParamType errorLevel="info" />
+        <!-- Added to suppress typehinting on $this->entitySerializer->.. calls. -->
+        <MoreSpecificReturnType errorLevel="info" />
+        <!-- Disable errors caused by using class typehinting on variables and interfaces on setter's param types. -->
+        <TypeCoercion errorLevel="info" />
+
+        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+        <DeprecatedMethod errorLevel="info" />
+
+        <MissingClosureReturnType errorLevel="info" />
+        <!-- Added to suppress errors on array_filter() calls in those places where all scalar types are possible as
+        variable type. Ex.: EntityNormalizer -->
+        <MissingClosureParamType errorLevel="info" />
+        <MissingReturnType errorLevel="info" />
+        <MissingPropertyType errorLevel="info" />
+        <InvalidDocblock errorLevel="info" />
+        <MisplacedRequiredParam errorLevel="info" />
+
+        <PropertyNotSetInConstructor errorLevel="info" />
+        <MissingConstructor errorLevel="info" />
+        <UntypedParam errorLevel="info" />
+    </issueHandlers>
+</psalm>

@@ -1,0 +1,21 @@
+# Ignore all hidden files exept these.
+.*
+!/.gitignore
+!/.gitattributes
+!/.editorconfig
+!/.travis.yml
+!.gitkeep
+
+# Other ignored paths and files.
+/*.php
+/*.xml
+/*.log
+!/.php_cs.dist
+!/psalm.xml.dist
+!/phpunit.xml.dist
+/vendor
+/composer.lock
+/report
+
+# OS specific files.
+Thumbs.db

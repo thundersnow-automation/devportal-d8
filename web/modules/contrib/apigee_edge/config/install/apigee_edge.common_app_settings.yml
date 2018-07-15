@@ -1,0 +1,6 @@
+langcode: en
+display_as_select: false
+user_select: true
+multiple_products: true
+default_products: []
+analytics_environment: prod

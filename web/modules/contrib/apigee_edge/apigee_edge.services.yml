@@ -1,0 +1,95 @@
+parameters:
+  factory.apigee_edge.app_credentials_storage: apigee_edge.keyvalue.app_credentials
+
+services:
+  logger.channel.apigee_edge:
+    parent: logger.channel_base
+    arguments: ['apigee_edge']
+
+  cache.apigee_edge_entity:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: cache_factory:get
+    arguments: [apigee_edge_entity]
+
+  apigee_edge.cli:
+    class: Drupal\apigee_edge\CliService
+
+  apigee_edge.sdk_connector:
+    class: Drupal\apigee_edge\SDKConnector
+    arguments: ['@http_client_factory', '@key.repository', '@entity_type.manager', '@config.factory', '@module_handler', '@info_parser']
+
+  apigee_edge.job_executor:
+    class: Drupal\apigee_edge\JobExecutor
+    arguments: ['@database', '@datetime.time', '@queue']
+
+  apigee_edge.exception_subscriber:
+    class: Drupal\apigee_edge\EventSubscriber\EdgeExceptionSubscriber
+    arguments: ['@url_generator']
+    tags:
+      - { name: event_subscriber }
+
+  apigee_edge.edge_entity_config_translation_change_subscriber:
+    class: Drupal\apigee_edge\EventSubscriber\EdgeEntityConfigTranslationChangeSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  access_check.developer_app:
+    class: Drupal\apigee_edge\Access\DeveloperAppAccessCheck
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: access_check, applies_to: _developer_app_access }
+
+  entity.query.edge:
+    class: Drupal\apigee_edge\Entity\Query\QueryFactory
+    arguments:
+      - '@entity_type.manager'
+    tags:
+      - { name: event_subscriber }
+
+  route_subscriber.apigee_edge.developer_app_by_name:
+    class: Drupal\apigee_edge\Routing\DeveloperAppByNameRouteAlterSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  route_subscriber.apigee_edge.developer_app_field_ui:
+    class: Drupal\apigee_edge\Routing\DeveloperAppFieldUIRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  paramconverter.developer_app_name:
+    class: Drupal\apigee_edge\ParamConverter\DeveloperAppNameConverter
+    arguments: ['@entity_type.manager', '@logger.channel.apigee_edge']
+    tags:
+      - { name: paramconverter }
+
+  paramconverter.apigee_edge_load_unchanged_entity:
+    class: Drupal\apigee_edge\ParamConverter\ApigeeEdgeLoadUnchangedEntity
+    arguments: ['@entity_type.manager']
+    tags:
+      # Use a higher priority than EntityConverter, see the class for details.
+      - { name: paramconverter, priority: 10 }
+
+  apigee_edge.keyvalue.app_credentials:
+    class: Drupal\apigee_edge\KeyValueStore\AppCredentialStorageFactory
+
+  apigee_edge.keyvalue.expirable.app_credentials:
+    parent: keyvalue.expirable
+    arguments:
+      index_1:
+        keyvalue_expirable_default: '%factory.apigee_edge.app_credentials_storage%'
+
+  apigee_edge.tempstore.private.app_credentials:
+    parent: tempstore.private
+    arguments:
+      index_0: '@apigee_edge.keyvalue.expirable.app_credentials'
+
+  apigee_edge.tempstore.shared.app_credentials:
+    parent: tempstore.shared
+    arguments:
+      index_0: '@apigee_edge.keyvalue.expirable.app_credentials'
+
+  plugin.manager.apigee_field_storage_format:
+    class: Drupal\apigee_edge\FieldStorageFormatManager
+    parent: default_plugin_manager
