@@ -1,0 +1,8 @@
+langcode: en
+display_as_select: false
+user_select: true
+multiple_products: true
+default_products: {  }
+analytics_environment: prod
+_core:
+  default_config_hash: BhWNFqrrph5aPl_RYVt_fo8nMWDbSuQajc4A7bS_eZU
