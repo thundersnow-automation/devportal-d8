@@ -4,3 +4,5 @@ config:
   webroot: web
   php: '7.1'
   xdebug: true
+  # Clean URLs not working on Apache
+  via: nginx
